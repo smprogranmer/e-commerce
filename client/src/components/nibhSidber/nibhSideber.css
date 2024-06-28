@@ -1,0 +1,45 @@
+.NIBH_SIDEBER {
+    height: 100vh;
+    background: #072744;
+    width: 15rem;
+    border-radius: 1rem;
+}
+
+
+
+.NAV_ITEMS{
+    margin-top: 2rem;
+    text-align: center;
+}
+.NAV_ITEMS li{
+  color: #002D62;
+  font-weight: 500;
+  font-size: 1.3rem;
+  transition: var(--transition);
+  padding: .7rem 0;
+  margin: 1rem;
+  border-radius: .7rem;
+}
+
+
+.NAV_ITEMS li a{
+    color: #fff;
+    width: 100%;
+}
+
+.NAV_ITEMS li:hover{
+    background-color: #fff;
+}
+.NAV_ITEMS li:hover a{
+    color: #002D62;
+}
+
+
+
+.NIBH_LOGO {
+    text-align: center;
+    background: #fff;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+}

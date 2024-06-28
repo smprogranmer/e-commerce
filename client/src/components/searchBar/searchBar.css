@@ -1,0 +1,30 @@
+.search_content{
+    position: absolute;
+    top: 6rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    width: 15rem;
+    overflow-x: hidden;
+    height: 27rem;
+    right: 7rem;
+    background-color: aliceblue;
+}
+
+.search_content > a > figure{
+    border-radius: 1rem;
+    width: 4rem;
+}
+
+.search_content > a{
+    padding: .5rem;
+    margin: .5rem 0;
+    border-bottom: .1rem solid;
+    display: flex;
+    gap: 1rem;
+}
+
+.search_content .price_name p{
+    font-size: .9rem;
+    color: black;
+    margin-bottom: .2rem;
+}

@@ -1,0 +1,47 @@
+
+.checkOut_sammary{
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-top: 3rem;
+
+}
+
+.checkOut_sammary .total{
+    margin: 1rem 0;
+    border-top: .1rem solid;
+    padding: 1rem 0;
+    border-bottom: .1rem solid;
+}
+.checkOut_sammary .total > div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.checkOut_sammary > .sammary_item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0;
+    border-top: .1rem solid;
+    padding-top: 1.5rem;
+}
+
+.sammary_item .sammary_Item_container{
+    gap: 1rem;
+    display: flex;
+    justify-content: space-between;   
+}
+
+.sammary_item .sammary_Item_container .sammery_item_image_container{
+    width: 3rem;
+}
+
+
+.checkOut_sammary  .radio-input label{
+    display: flex;
+    width: 10.5rem;
+}
+.checkOut_sammary  .radio-input input[type="radio"]{
+    margin-right: .5rem;
+}

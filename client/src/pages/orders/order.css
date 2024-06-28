@@ -1,0 +1,23 @@
+.order_header{
+    display: flex;
+    gap: 20rem;
+    height: 4rem;
+    align-items: center;
+    padding-left: 1rem;
+    background: #7195f3;
+}
+
+.order_header p{
+    font-weight: bold;
+}
+
+.orders{
+    display: flex;
+    padding-left: 1rem;
+    border-bottom: .1rem solid;
+    gap: 20rem;
+    margin: 1rem 0;
+    height: 4rem;
+    align-items: center;
+    background: #ebf6ff;
+}

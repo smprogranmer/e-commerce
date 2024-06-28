@@ -1,0 +1,15 @@
+.side_images{
+    display: grid;
+    grid-template-rows: repeat(4,1fr);
+    gap: .5rem;
+}
+
+.side_images > figure{
+    width: 5rem;
+    border-radius: .4rem;
+}
+
+.min_screen{
+    /* width: 30.25rem; */
+    border-radius: .5rem;
+}

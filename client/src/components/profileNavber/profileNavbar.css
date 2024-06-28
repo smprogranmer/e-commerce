@@ -1,0 +1,22 @@
+.profile_navbar{
+    position: absolute;
+    top: 5rem;
+    right: 0;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    background: aliceblue;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 99999;
+}
+
+.profile_navbar a{
+    padding: .8rem 1rem;
+    border-bottom: .1rem solid;
+}
+
+.profile_navbar a:hover{
+    background: #002D62;
+    color: #fff;
+}

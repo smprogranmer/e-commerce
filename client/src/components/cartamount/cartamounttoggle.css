@@ -1,0 +1,15 @@
+.qty_btn{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+
+
+
+
+.qty_btn svg{
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: pointer;
+}

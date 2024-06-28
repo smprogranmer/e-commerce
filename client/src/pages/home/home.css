@@ -1,0 +1,124 @@
+.Hero{
+    background: url(../assets/borka1.jpg);
+    height: 32rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.Hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Adjust the alpha value for darkness */
+  z-index: 1;
+}
+
+.hero_text{
+  width: 35rem;
+  position: absolute;
+  top: 8rem;
+  left: 5rem;
+}
+
+
+
+.hero_text h1{
+  font-size: 2.5rem;
+  color: #fff;
+}
+.hero_text p{
+  color: #fff;
+}
+
+.hero_container{
+  margin: 0;
+}
+
+
+.new_available_container h1{
+  text-transform: uppercase;
+}
+
+.new_available{
+  display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-gap: 20px;
+}
+
+.tending_container{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.tending_container h1{
+  margin-bottom: 1rem;
+}
+
+.images{
+display: flex;
+align-items: center;
+gap: 2rem;
+margin-top: 2rem;
+}
+
+.product-card{
+    border-radius: 4px;
+    margin-top: 1rem;
+  }
+  
+  .product-card .img_box{
+    width: 100%;
+    border-radius: .6rem;
+    overflow: hidden;
+  }
+
+  .product-card h2{
+    margin: 10px 0;
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+  
+  .product-card p{
+    margin: 10px 0;
+  }
+  
+  .product-card span{
+    font-weight: 400;
+    color: #002D62;
+  }
+
+  .product-card .price_box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+.right_img{
+    border-radius: 2rem;
+    overflow: hidden;
+    width: 30%;
+}
+
+.left_imgs{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    width: 100%;
+    /* height: ; */
+  }
+
+  .left_imgs figure{
+    border-radius: 2rem;
+    overflow: hidden;
+  }
+  
+
+.home_catogray{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  width: 90%;
+}
