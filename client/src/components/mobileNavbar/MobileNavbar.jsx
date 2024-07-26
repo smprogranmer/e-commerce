@@ -18,7 +18,7 @@ const MobileNavbar = ({setIsNavbarOpen,isNavbarOpen}) => {
                 mobileNavbarMenu.map((menu,index) => {
                     return (
                         <li key={index}>
-                            <a href={menu.path}>{menu.name}</a>
+                            <NavLink to={menu.path}>{menu.name}</NavLink>
                         </li>
                     )
                 })
