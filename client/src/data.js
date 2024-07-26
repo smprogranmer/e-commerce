@@ -122,15 +122,15 @@ export const Links = [
   },
   {
       name:'Borka',
-      path:'/Borka'
+      path:'/borka'
   },
   {
       name:'Abaya',
-      path:'/Abaya'
+      path:'/abaya'
   },
   {
       name:'Hijab',
-      path:'/Hijab'
+      path:'/hijab'
   },
   {
       name:'Cart',
