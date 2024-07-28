@@ -223,8 +223,7 @@ margin-top: 2rem;
   }
 
 }
-
-.custom-shape-divider-bottom-1722189020 {
+.custom-shape-divider-bottom-1722191755 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -234,15 +233,15 @@ margin-top: 2rem;
   transform: rotate(180deg);
 }
 
-.custom-shape-divider-bottom-1722189020 svg {
+.custom-shape-divider-bottom-1722191755 svg {
   position: relative;
   display: block;
-  width: calc(133% + 1.3px);
-  height: 67px;
+  width: calc(132% + 1.3px);
+  height: 56px;
 }
 
-.custom-shape-divider-bottom-1722189020 .shape-fill {
-  fill: #FFFFFF;
+.custom-shape-divider-bottom-1722191755 .shape-fill {
+  fill: #F8F8FF;
 }
 
 .btn-shine {
