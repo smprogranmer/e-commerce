@@ -16,11 +16,10 @@ const ProductsDetailse = () => {
   console.log("🚀 ~ ProductsDetailse ~ productId:",id)
   const { data = {}, isLoading, error } = useProductDetailsQuery(id);
   const product = data.product || {};
-  console.log("🚀 ~ ProductsDetailse ~ data:", product)
+  console.log("🚀 ~ ProductsDetailse ~ data:", product.stock)
 
-  const [pSizes, setSizes] = useState(sizes[0]);
+  const [pSizes, setSizes] = useState(0);
 
-  const stok = 5;
 
   return isLoading ? <Loader/> : (
     <>
@@ -39,11 +38,11 @@ const ProductsDetailse = () => {
 
             <div className="product_wrapper">
               <div className="product_size">
-                <span> Availabe Color</span>
+                <span> Availabe Sizes</span>
                 <ul>
                   {sizes.map((size, index) => {
                     return (
-                      <li className={pSizes === size ? "active_btn" : ""}>
+                      <li key={index} className={pSizes === index ? "active_btn" : ""} onClick={() => setSizes(index)}>
                         {size}
                       </li>
                     );
@@ -54,17 +53,17 @@ const ProductsDetailse = () => {
                 <span>Availabe Size</span>
                 <ul>
                   {colors.map((color, index) => {
-                    return <li style={{ background: color }}></li>;
+                    return <li key={index} style={{ background: color }}></li>;
                   })}
                 </ul>
               </div>
             </div>
             <div className="product_qty">
               <p>
-                <span>Last {stok} left</span>- make it your!
+                <span>Last {product.stock} left</span>- make it your!
               </p>
               <div>
-                <CartamountToggle/>
+                <CartamountToggle stock={product.stock}/>
                 <button className="btn_secondery">
                   Add To Card
                   <FiShoppingCart />

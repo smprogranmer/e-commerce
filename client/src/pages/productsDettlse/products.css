@@ -37,9 +37,9 @@
 
 .product_data .product_size ul li {
     color: #002D62;
-    padding: 0.4rem;
+    padding: 0.4rem .6rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     border-radius: 0.4rem;
     cursor: pointer;
 }
@@ -70,22 +70,6 @@
     font-size: 1.3rem;
 }
 
-.product_qty .qty_btn {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.product_qty .qty_btn > button {
-    background-color: #002d62;
-    border: 2px solid;
-    padding: .2rem .7rem;
-}
-
-.product_qty .qty_btn svg {
-    font-size: 1.2rem;
-    color: #fff;
-}
 
 @media (max-width: 768px) {
     .products_details {

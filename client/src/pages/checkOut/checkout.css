@@ -28,6 +28,24 @@
 .submit_btn{
     position: absolute;
     bottom: -1.5rem;
-    right: 11rem;
+    right: 1%;
+
+}
+
+
+@media (max-width: 468px) {
+    .checkOut_section{
+        grid-template-columns: 1fr;
+    }
+    .checkOut_section > form > div > input{
+        width: 100%;
+    }
+    .checkOut_section > form > div > div {
+        width: 100%;
+        gap: 1rem;
+    }
+    .checkOut_section > form > div > div > input{
+        width: 50%;
+    }
 
 }

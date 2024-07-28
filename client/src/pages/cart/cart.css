@@ -121,7 +121,7 @@
     .summery_container{
         margin-top: 2rem;
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
     }
     
 }
