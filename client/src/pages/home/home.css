@@ -212,7 +212,8 @@ margin-top: 2rem;
   }
   
   .hero_text p{
-    font-size: 1.5rem;
+    margin: 1rem 0;
+    font-size: 1.2rem;
     color: black;
   }
   .hero_text{
