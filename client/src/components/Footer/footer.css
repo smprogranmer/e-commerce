@@ -1,6 +1,6 @@
 
 footer{
-    background: #022145;
+    background: #002740fc;
     padding-top: 2rem;
 }
 .footer__container{
@@ -46,6 +46,15 @@ footer .icons > i:hover{
     color: #0066b2;
 }
 
+.footer_socials svg{
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+
+.footer_1{
+    color: #fff;
+}
 
 @media (max-width: px) {
     footer .footer__container {
