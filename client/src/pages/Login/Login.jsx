@@ -54,7 +54,7 @@ const Login = (props) => {
             <form className="user_authorization_form" onSubmit={handleSubmit(onSubmit)}>
               <div className="head">
                 <span>Login</span>
-                {/* <p>Create a free account with your email.</p> */}
+                <p>Enter your email and we'll send you a login code </p>
               </div>
               <div className="inputs">
               <input
