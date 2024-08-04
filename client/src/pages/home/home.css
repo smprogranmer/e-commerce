@@ -368,3 +368,16 @@ margin-top: 2rem;
     transform: rotate(360deg);
   }
 }
+
+.shop_now{
+  font-size: 1rem;
+  margin-left: 1rem;
+  background: transparent;
+  position: relative;
+}
+
+.shop_now svg{
+    margin-left: .5rem;
+    font-size: 1rem;
+    position: absolute;
+}

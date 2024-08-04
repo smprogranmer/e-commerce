@@ -7,10 +7,15 @@
 .remember_forget_div{
     display: flex;
     justify-content: space-between;
-    width: 22rem;
+    width: 100%;
 }
 
-.remember_forget_div > a,label {
+.remember_forget_div > a {
+    font-size: .9rem;
+    border-bottom: 1px solid;
+}
+.remember_forget_div > label {
+    color: #000;
     font-size: .9rem;
 }
 
