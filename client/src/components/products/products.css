@@ -89,6 +89,10 @@
   padding-left: 0.3rem;
 }
 
+.mobile_category{
+  display: none;
+}
+
 .sort{
   margin-left: auto;
 }
@@ -265,7 +269,7 @@
     font-size:.9rem;
   }
   .products_category .filter{
-    display: block;
+    display: flex;
   }  
 
   .category_items {
@@ -274,6 +278,7 @@
 
   /* mobile_category  */
   .mobile_category{
+    display: block;
     position: fixed;
     top: 0;
     bottom: 0;
