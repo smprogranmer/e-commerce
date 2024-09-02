@@ -72,15 +72,18 @@ margin-top: 2rem;
     margin: 10px 0;
     font-weight: 400;
     font-size: 1.2rem;
+    text-transform: capitalize;
   }
   
   .product-card p{
     margin: 10px 0;
+    color: #000;
   }
   
   .product-card span{
     font-weight: 400;
     color: #002D62;
+    font-size: 1.3rem;
   }
 
   .product-card .price_box{

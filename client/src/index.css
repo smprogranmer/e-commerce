@@ -159,7 +159,7 @@ img{
 }
 
 .btn_secondery{
-  background: #F5F4FF;
+  background: transparent;
   display: flex;
   align-items: center;
   gap: .8rem;
