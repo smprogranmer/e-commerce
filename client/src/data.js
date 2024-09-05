@@ -336,6 +336,20 @@ export const category = [
             }
         ]
     },
+    {
+        name:'Low to High',
+        dropDown:[
+            {
+                name:'Default',
+            },
+            {
+                name:'High to  Low',
+            },
+            {
+                name:"Low to High"
+            }
+        ]
+    },
 
 ]
 

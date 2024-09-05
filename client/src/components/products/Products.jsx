@@ -71,9 +71,6 @@ const Products = ({ isLoading, productsData, checkedItem }) => {
               </li>
             ))}
           </div>
-          <li className="sort">
-            Low to high <AiOutlineDown />
-          </li>
           {/* mobile cagegory div  */}
           <div className={`mobile_category ${isMobileCategoryOpen ? "mobile_category_active" : ""}`}>
             <IoClose className="close_bars" onClick={() => setIsMobileCategoryOpen(!isMobileCategoryOpen)} />

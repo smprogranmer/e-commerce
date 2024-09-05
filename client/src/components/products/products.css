@@ -48,12 +48,16 @@
   .category_items{
     display: flex;
     gap: 1rem;
+    width: 100%;
   }
 
   .category_items li{
     position: relative;
   }
-
+  .category_items li:nth-of-type(4){
+    margin-right: 0;
+    margin-left: auto;
+  }
   .products_category .category_sort{
     display: flex;
     justify-content: space-between;
@@ -272,8 +276,11 @@
     display: flex;
   }  
 
-  .category_items {
+  .category_items li{
     display: none;
+  }
+  .category_items li:nth-of-type(4){
+    display: flex;
   }
 
   /* mobile_category  */

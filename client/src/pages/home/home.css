@@ -380,6 +380,7 @@ margin-top: 2rem;
 }
 
 .shop_now svg{
+    bottom: 4px;
     margin-left: .5rem;
     font-size: 1rem;
     position: absolute;
