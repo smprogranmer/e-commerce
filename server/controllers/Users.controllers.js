@@ -145,7 +145,12 @@ const loginUsers = catchAsyncError(async (req, res, next) => {
   .cookie("accessToken", accessToken, options)
   .cookie("refreshToken", refreshToken, options)
   .json(
-    "User login successful"
+    {
+      success: true,
+      message: "User login successful",
+      accessToken,
+      refreshToken,
+    }
   );
 });
 
