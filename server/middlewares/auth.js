@@ -23,9 +23,7 @@ const isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
       }
   
       req.user = {
-        id: user.id,
-        email: user.email,
-        fullName: user.fullName,
+        _id: user._id,
       };
   
       next();

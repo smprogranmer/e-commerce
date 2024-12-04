@@ -36,7 +36,7 @@ const productRemovefromCart = catchAsyncError(async (req, res) => {
 });
 
 const fetchCartProduct = catchAsyncError(async (req, res) => {
-  const { _id } = req.users;
+  const { _id } = req.user;
   const cartProducts = await Cart.find({ userId: _id });
 
   res.status(200).json({
