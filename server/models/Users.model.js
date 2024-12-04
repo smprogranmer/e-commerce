@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const UserSchema = new mongoose.Schema({
-  name: {
+  fullName: {
     type: String,
     required: [true, "Please Enter your name"],
     maxLength: [30, "name should be less than 30 charator"],
@@ -59,6 +59,10 @@ const UserSchema = new mongoose.Schema({
       ref: "products",
     },
   ],
+  refreshToken: {
+    type: String,
+    default: "",
+  },
   // avatar:{
 
   //         public_id:{
@@ -89,13 +93,19 @@ UserSchema.pre("save", async function (next) {
 });
 
 // json web token
-UserSchema.methods.getJwtToken = function () {
-  return JWT.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: "3d",
+UserSchema.methods.generateAccessToken = function () {
+  return JWT.sign({ id: this.id }, process.env.ACCESS_JWT_SECRET, {
+    expiresIn: process.env.ACCESS_JWT_SECRET_EXPIRATION,
+  });
+};
+UserSchema.methods.generateRefreshToken = function () {
+  return JWT.sign({ id: this.id }, process.env.REFRESH_JWT_SECRET, {
+    expiresIn: process.env.REFRESH_JWT_SECRET_EXPIRATION,
   });
 };
 
-UserSchema.methods.comperPassword = async function (enteredPassword) {
+
+UserSchema.methods.checkPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

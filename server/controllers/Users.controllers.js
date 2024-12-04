@@ -1,9 +1,41 @@
 const catchAsyncError = require("../middlewares/catchAsyncError");
 const users = require("../models/Users.model");
 const ErroHandler = require("../utils/erroHandler");
+const { GenerateToken } = require("../utils/GenerateToken");
 const sendEmail = require("../utils/sendEmail");
+const JWT = require("jsonwebtoken");
 const { sendToken } = require("../utils/sendToken");
 const sendVeryToken = require("../utils/sendVeriyToken");
+
+const accessFereshToken = catchAsyncError(async (req,res,next) =>{
+
+  const incomingToken = req.cookies?.refreshToken || req.body.refreshToken;
+
+  if(!incomingToken){
+    return next(new ErroHandler( "Unauthorized request",401));
+  }
+
+  console.log("🚀 ~ accessFereshToken ~ incomingToken:", incomingToken)
+  const decodedToken = await JWT.verify(incomingToken, process.env.ACCESS_JWT_SECRET);
+
+  const user = await users.findById(decodedToken.id);
+
+  if(!user){
+    return next(new ErroHandler( "Unauthorized request",401));
+  }
+
+  if(incomingToken !== user?.refreshToken){
+    return next(new ErroHandler( "Refresh token is expired or useds",401));
+  }
+
+  const { accessToken, refreshToken, options } = await GenerateToken( user.id);
+
+  return res
+  .status(200)
+  .cookie("accessToken", accessToken, options)  
+  .cookie("refreshToken", refreshToken, options)
+  .json("Access token refreshed successfully")
+})
 
 const getAllUsers = catchAsyncError(async (req, res, next) => {
   const Users = await users.find();
@@ -35,35 +67,51 @@ const verifyUser = catchAsyncError(async (req, res, next) => {
   // sendToken(Users,201,res)
 });
 const registerUsers = catchAsyncError(async (req, res, next) => {
-  const { name, email, password, phone } = req.body;
+  const { fullName, email, password, phone } = req.body;
+
+  if (!fullName || !email || !password || !phone) {
+    return res
+      .status(400)
+      .json({ success: false, message: "All fields are required" });
+  }
+
 
   const existingUser = await users.exists({ email: email });
+
   if (existingUser) {
     return next(
       new ErroHandler("User with  this email already exits, Please login ", 409)
     );
   }
 
-  // prepare email
-  const emailData = {
+  const Users = await users.create({
+    fullName,
     email,
-    subject: "Account Activation Email",
-    html: ` <h2>Hello ${name} !</h2> <p>Click the following link to verify your email: <a href=" http://localhost:5173/user_activetion">hello</a> </p>`,
-  };
+    password,
+    phone,
+  });
 
-  try {
-    await sendEmail(emailData);
-  } catch (error) {
-    console.log("🚀 ~ registerUsers ~ sending email ~ error:", error);
-  }
+  // prepare email
+  // const emailData = {
+  //   email,
+  //   subject: "Account Activation Email",
+  //   html: ` <h2>Hello ${name} !</h2> <p>Click the following link to verify your email: <a href=" http://localhost:5173/user_activetion">hello</a> </p>`,
+  // };
+
+  // try {
+  //   await sendEmail(emailData);
+  // } catch (error) {
+  //   console.log("🚀 ~ registerUsers ~ sending email ~ error:", error);
+  // }
   // const Users = users.getJwtToken()
-  // console.log("🚀 ~ registerUsers ~ Users:", Users)
+  // // console.log("🚀 ~ registerUsers ~ Users:", Users)
 
-  const token = sendVeryToken({ email });
+  // const token = sendVeryToken({ email });
 
   res.status(200).json({
     message: "email send to your email",
-    payload: { token },
+    user: Users
+    // payload: { token },
   });
 
   // sendToken(Users,201,res)
@@ -73,7 +121,7 @@ const loginUsers = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new ErroHandler("invalied email and password"));
+    return next(new ErroHandler("All fields are required"));
   }
 
   const user = await users.findOne({ email }).select("+password");
@@ -82,13 +130,23 @@ const loginUsers = catchAsyncError(async (req, res, next) => {
     return next(new ErroHandler("Invalied email please enter your email"));
   }
 
-  const isPasswordMatch = await user.comperPassword(password);
-
-  if (!isPasswordMatch) {
-    return next(new ErroHandler("Invalied Password"));
+  if (!user || !user.checkPassword(password)) {
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid credentials" });
   }
 
-  sendToken(user, 200, res);
+  const {  accessToken, refreshToken, options } =
+  await GenerateToken(user._id);
+
+  // sendToken(user, 200, res);
+  return res
+  .status(200)
+  .cookie("accessToken", accessToken, options)
+  .cookie("refreshToken", refreshToken, options)
+  .json(
+    "User login successful"
+  );
 });
 
 const logOutUsers = catchAsyncError(async (req, res, next) => {
@@ -158,4 +216,6 @@ module.exports = {
   getSingleUser,
   deleteUsers,
   verifyUser,
+  accessFereshToken,
+ 
 };

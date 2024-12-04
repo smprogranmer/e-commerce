@@ -1,5 +1,5 @@
 const express = require('express')
-const { getAllUsers, registerUsers,loginUsers,logOutUsers,upgradeUsers,upgradeProfile,getSingleUser,deleteUsers, verifyUser, forgotPassword, changePassword } = require('../controllers/Users.controllers')
+const { getAllUsers, registerUsers,loginUsers,logOutUsers,upgradeUsers,upgradeProfile,getSingleUser,deleteUsers, verifyUser, forgotPassword, changePassword, accessFereshToken } = require('../controllers/Users.controllers')
 const isAuthenticatedUser = require('../middlewares/auth')
 
 
@@ -14,6 +14,7 @@ Router.post('/logOut',logOutUsers)
 Router.delete('/admin/:id',isAuthenticatedUser,deleteUsers)
 Router.put('/me/change-password',isAuthenticatedUser,changePassword)
 Router.put('/me/upgradeProfile',isAuthenticatedUser,upgradeProfile)
+Router.post('/refresh-token',accessFereshToken)
 
 
 module.exports = Router
