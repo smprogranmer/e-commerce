@@ -15,27 +15,35 @@ const accessFereshToken = catchAsyncError(async (req,res,next) =>{
     return next(new ErroHandler( "Unauthorized request",401));
   }
 
-  console.log("🚀 ~ accessFereshToken ~ incomingToken:", incomingToken)
-  const decodedToken = await JWT.verify(incomingToken, process.env.ACCESS_JWT_SECRET);
+  try {
+    const decodedToken =  JWT.verify(incomingToken, process.env.REFRESH_JWT_SECRET);
 
-  const user = await users.findById(decodedToken.id);
+    console.log("🚀 ~ accessFereshToken ~ decodedToken:", decodedToken)
+  
+    const user = await users.findById(decodedToken?.id);
+  
+    if(!user){
+      return next(new ErroHandler( "Unauthorized request",401));
+    }
+  
+    if(incomingToken !== user?.refreshToken){
+      return next(new ErroHandler( "Refresh token is expired or useds",401));
+    }
+  
+    const { accessToken, refreshToken, options } = await GenerateToken( user.id);
+  
+    return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)  
+    .cookie("refreshToken", refreshToken, options)
+    .json("Access token refreshed successfully")
+  } catch (error) {
+    console.log(error);
+    return next(new ErroHandler( "Invalid access token",401)); 
 
-  if(!user){
-    return next(new ErroHandler( "Unauthorized request",401));
   }
-
-  if(incomingToken !== user?.refreshToken){
-    return next(new ErroHandler( "Refresh token is expired or useds",401));
-  }
-
-  const { accessToken, refreshToken, options } = await GenerateToken( user.id);
-
-  return res
-  .status(200)
-  .cookie("accessToken", accessToken, options)  
-  .cookie("refreshToken", refreshToken, options)
-  .json("Access token refreshed successfully")
 })
+  // console.log("🚀 ~ accessFereshToken ~ incomingToken:", incomingToken)
 
 const getAllUsers = catchAsyncError(async (req, res, next) => {
   const Users = await users.find();

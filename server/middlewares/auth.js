@@ -28,7 +28,7 @@ const isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
   
       next();
     } catch (error) {
-     console.log(error)   
+      return next(new ErroHandler( "Invalid access token",401)); 
     }
 })
 

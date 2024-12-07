@@ -7,7 +7,7 @@ exports.GenerateToken = async ( user_id) => {
   
       const accessToken = user.generateAccessToken();
   
-      const refreshToken = user.generateAccessToken();
+      const refreshToken = user.generateRefreshToken();
   
       user.refreshToken = refreshToken;
       await user.save();
