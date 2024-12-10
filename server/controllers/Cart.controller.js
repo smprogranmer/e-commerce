@@ -2,13 +2,13 @@ const Cart = require("../models/Cart.model.js");
 const catchAsyncError = require("../middlewares/catchAsyncError.js");
 
 const addToCart = catchAsyncError(async (req, res) => {
-  // console.log(req.users._id);
+  console.log(req.user);
   const cart = new Cart({
     ...req.body,
     image: {
       url: req.body.image,
     },
-    userId: req.users._id,
+    userId: req.user._id,
   });
 
   const newCart = await cart.save();
