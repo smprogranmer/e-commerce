@@ -3,28 +3,9 @@ const mongoose = require('mongoose')
 const orderSchema = new mongoose.Schema({
     orderProducts: [
         {
-            name:{
-                type:String,
-                required:[true,"Please enter your product name"],
-                trim: true
-            },
-            price:{
-                type:Number,
-                required:[true,"Please enter your product price"],
-                maxLength:[8,"Price cannot exced 8 characters"]
-            },
-            quantity:{
-                type:Number,
-                required:true
-            },
-            image:[
-                {
-                    url:{
-                        type:String,
-                        required:true
-                    }
-                }
-            ],
+            type:mongoose.Schema.ObjectId,
+            ref:"Carts",
+            required:true
         }
     ],
     totalPrice:{
@@ -36,10 +17,18 @@ const orderSchema = new mongoose.Schema({
         ref:"Users",
         required:true,
     },
-    createdAt:{
-        type:Date,
-        default:Date.now
-    }
+    shippingDetails: {
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+        phoneNumber: { type: Number, required: true },
+        streetAddress: { type: String, required: true },
+        city: { type: String, required: true },
+        postalCode: { type: String, required: true },
+      },
+},
+{
+    timestamps:true
+    
 })
 
 module.exports = mongoose.model('Orders',orderSchema)

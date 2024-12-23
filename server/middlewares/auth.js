@@ -8,7 +8,8 @@ const isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
         const token =
         req.cookies?.accessToken ||
         req.header("Authorization")?.replace("Bearer ", "");
-  
+
+      console.log("🚀 ~ token:", req.cookies)
       if (!token) {
         return next(new ErroHandler( "Unauthorized request",401));
       }

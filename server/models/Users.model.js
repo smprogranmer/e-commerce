@@ -39,15 +39,11 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
-      email: {
-        type: String,
-        required: true,
-      },
       city: {
         type: String,
         required: true,
       },
-      address: {
+      streetAddress: {
         type: String,
         required: true,
       },

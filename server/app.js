@@ -2,6 +2,7 @@ const express = require("express");
 const { config } = require("dotenv");
 const productsRouter = require("./routes/Products.route");
 const cardRouter = require("./routes/Cart.route");
+const orderRouter = require("./routes/Order.route");
 const usersRouter = require("./routes/Users.route");
 const error = require("./middlewares/error");
 const cookiePaser = require("cookie-parser");
@@ -14,7 +15,7 @@ config({
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:5173","http://localhost:4173",process.env.CLIENT_URL],
+  origin: ["http://localhost:5173","http://localhost:4173","https://newiraniborkahouse.vercel.app/",process.env.CLIENT_URL],
   methods: "GET,POST,PUT,DELETE,PATCH,HEAD",
   credentials: true,
 };
@@ -28,6 +29,7 @@ app.use(cookiePaser());
 app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/cart", cardRouter);
 app.use("/api/v1/user/", usersRouter);
+app.use("/api/v1/order", orderRouter);
 
 // console.log("limits" + limit)
 
