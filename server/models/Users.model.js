@@ -9,10 +9,6 @@ const UserSchema = new mongoose.Schema({
     maxLength: [30, "name should be less than 30 charator"],
     minLength: [4, "name should be grather than 4 charator"],
   },
-  phone: {
-    type: Number,
-    required: [true, "please enter your phone number "],
-  },
   email: {
     type: String,
     unique: true,
@@ -29,23 +25,23 @@ const UserSchema = new mongoose.Schema({
     {
       firstName: {
         type: String,
-        required: true,
+        
       },
       lastName: {
         type: String,
-        required: true,
+        
       },
       phoneNumber: {
         type: Number,
-        required: true,
+        
       },
       city: {
         type: String,
-        required: true,
+        
       },
       streetAddress: {
         type: String,
-        required: true,
+        
       },
     },
   ],

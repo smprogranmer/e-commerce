@@ -75,9 +75,9 @@ const verifyUser = catchAsyncError(async (req, res, next) => {
   // sendToken(Users,201,res)
 });
 const registerUsers = catchAsyncError(async (req, res, next) => {
-  const { fullName, email, password, phone } = req.body;
+  const { fullName, email, password } = req.body;
 
-  if (!fullName || !email || !password || !phone) {
+  if (!fullName || !email || !password ) {
     return res
       .status(400)
       .json({ success: false, message: "All fields are required" });
@@ -96,7 +96,6 @@ const registerUsers = catchAsyncError(async (req, res, next) => {
     fullName,
     email,
     password,
-    phone,
   });
 
   // prepare email
