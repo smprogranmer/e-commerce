@@ -14,7 +14,7 @@ const isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
         return next(new ErroHandler( "Unauthorized request",401));
       }
   
-      const decodedToken = await JWT.verify(token, process.env.ACCESS_JWT_SECRET);
+      const decodedToken =  JWT.verify(token, process.env.ACCESS_JWT_SECRET);
   
       const user = await User.findById(decodedToken.id);
       // console.log("🚀 ~ user:", user);

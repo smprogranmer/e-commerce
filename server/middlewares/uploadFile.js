@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     const extname = path.extname(file.originalname);
     const ex = file.originalname.replace(extname, "") + extname;
-    // console.log("🚀 ~ file: uploadFile.js:12 ~ ex:", ex)
+    console.log("🚀 ~ file: uploadFile.js:12 ~ ex:", ex)
     // console.log(ex);
     cb(
       null,

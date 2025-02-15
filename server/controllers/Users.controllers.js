@@ -144,6 +144,7 @@ const loginUsers = catchAsyncError(async (req, res, next) => {
   }
 
   const {  accessToken, refreshToken, options } =
+  console.log("🚀 ~ loginUsers ~ accessToken:", accessToken)
   await GenerateToken(user._id);
 
   // sendToken(user, 200, res);

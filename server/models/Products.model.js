@@ -1,71 +1,72 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+const slugify = require("slugify");
 
-const ProductsSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:[true,"Please enter your product name"],
-        trim: true
+const productSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+
     },
-    description:{
-        type:String,
-        required:[true,'Please enter your product description']
+    slug: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
-    price:{
-        type:Number,
-        required:[true,"Please enter your product price"],
-        maxLength:[8,"Price cannot exced 8 characters"]
+    model:{
+      type: Number,
+      required: true,
     },
-    rating:{
-        type:Number,
-        default:0
+    description: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    image:[
-        {
-            url:{
-                type:String,
-                required:true
-            }
-        }
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    sizes: {
+      type: Map,
+      of: Number,
+      default: {},
+      validate: {
+        validator: function (sizes) {
+          return [...sizes.keys()].every((size) =>
+            [52, 54, 56].includes(Number(size))
+          );
+        },
+        message: "Sizes must be one of 52, 54, 56.",
+      },
+    },
+    images: [
+      {
+        url: {
+          type: String,
+          required: true,
+        },
+      },
     ],
-    category:{
-        type:String,
-        required:[true,"Please enter your product category"]
-    },
-    stock:{
-        type:Number,
-        required:[true,"Please enter your product stock"],
-        maxLength:[4,"Stock cannot exceed 4 characters"],
-        default:5
-    },
-    numOfReviews:{
-        type:Number,
-        default:0
-    },
-    // reviews:[
-    //     {
-    //         name:{
-    //             type:String,
-    //             required:true,
-    //         },
-    //         rating:{
-    //             type:Number,
-    //             required:true,
-    //         },
-    //         comment:{
-    //             type:String,
-    //             required:true
-    //         }
-    //     }
-    // ],
-    // user:{
-    //     type:mongoose.Schema.ObjectId,
-    //     ref:"user",
-    //     required:true,
-    // },
-    createdAt:{
-        type:Date,
-        default:Date.now
-    }
-})
+  },
+  {
+    timestamps: true,
+  }
+);
 
-module.exports = mongoose.model('Products',ProductsSchema)
+productSchema.pre("save", function (next) {
+  this.slug = slugify(`${this.name}-${this.model}`, {
+    lower: true,
+    strict: true,
+  });
+  next();
+});
+
+module.exports = mongoose.model("Products", productSchema);

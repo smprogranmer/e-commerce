@@ -3,6 +3,8 @@ const {
   multiple,
   uploadPromises,
 } = require("../config/cloudinary");
+const uploadOnCloudinaryTwo = require("../config/CloudinaryTwo");
+
 const catchAsyncError = require("../middlewares/catchAsyncError");
 const Order = require("../models/Order.model");
 const products = require("../models/Products.model");
@@ -16,6 +18,7 @@ cloudinary.config({
   api_key: "516442183868363",
   api_secret: "0h5n9KPUr7CSztPQMY0HiKPIifs",
 });
+
 
 const HomePage = catchAsyncError(async (req, res, next) => {
   res.send("hello");
@@ -55,40 +58,24 @@ const getTandingProducts = catchAsyncError(async (req, res, next) => {
 });
 
 const cloudinaryTest = catchAsyncError(async (req, res, next) => {
+  const { name, description, price, images, sizes, category } = req.body;
+  console.log("skldfklsdfkls");
+  console.log(name, description, price, images,sizes, category);
   const files = req.files;
-  const { name, description, price, image, category } = req.body;
-  console.log(
-    "🚀 ~ file: Products.controllers.js:25 ~ cloudinaryTest ~ files:",
-    files
-  );
-  const urls = [];
-  // console.log("🚀 ~ file: Products.controllers.js:40 ~ cloudinaryTest ~ urls:", urls)
-  for (const file of files) {
-    const { path } = file;
-    // console.log("🚀 ~ file: Products.controllers.js:94 ~ //res.status ~ path:", path)
-    const newPath = await cloudinary.uploader.upload(path, {
-      resource_type: "auto",
-      folder: "NIBH_IMAGES",
-    });
-    // console.log("🚀 ~ file: Products.controllers.js:40 ~ createProducts ~ newPath:", newPath)
-    urls.push(newPath);
+  console.log("��� ~ cloudinaryTest ~ files:", req)
+
+  if (!name || !description || !price || !sizes || !images || !category) {
+    return next(new ErroHandler("Please fill all the fields", 400));
   }
 
-  const imgData = urls.map((url) => ({
-    public_id: url.public_id,
-    url: url.secure_url,
-  }));
-  console.log(
-    "🚀 ~ file: Products.controllers.js:54 ~ cloudinaryTest ~ imgData:",
-    imgData
-  );
-  const Products = await products.create({
-    name,
-    description,
-    price,
-    category,
-    image: imgData,
-  });
+  const imgData = await Promise.all(
+    files.map((file) =>
+      cloudinary.uploader.upload(file.path, {
+        resource_type: "auto",
+        folder: "NIBH_IMAGES",
+      })
+    )
+  ).then((results) => results.map((result) => ({ public_id: result.public_id, url: result.secure_url })));
 
   res.status(201).json({
     message: "Product created succfully",
@@ -204,6 +191,40 @@ const createProducts = catchAsyncError(async (req, res, next) => {
 
   // res.json({ message: 'Files uploaded to Cloudinary and saved in MongoDB.' });
 });
+const product = catchAsyncError(async (req,res,next) => {
+  console.log("hello world!");
+  // console.log(req)
+  const imageUrls = await uploadOnCloudinaryTwo(req.files.map((file) => file.path))
+  console.log("🚀 ~ product ~ productImage:", imageUrls)
+
+  const newProduct = new products({
+    name: "Tow Part abaya",
+    description: "sdffksldfksdfjkls",
+    price: 200,
+    category: "borka",
+    sizes: { // Correct key name
+      "52": 2,
+      "54": 3,
+      "56": 4,
+    },
+    model:238,
+    images: imageUrls.map((url) => ({
+      url,
+      alt: "Two Part Abaya image",
+    })),
+  });
+  
+  await newProduct.save();
+
+  console.log("🚀 ~ product ~ newProduct:", newProduct)
+  // console.log("🚀 ~ product ~ newProduct:", newProduct)
+  res.status(201).json({
+    success: true,
+    newProduct,
+  });
+  
+})
+
 
 const upgradeProducts = catchAsyncError(async (req, res, next) => {
   let Products = products.findById(req.params.id);
@@ -282,12 +303,14 @@ const orders = catchAsyncError(async (req, res, next) => {
   });
 });
 
-// myOrders 
-const myOrders = catchAsyncError(async (req,res) => {
-  const orders = await Order.find({userId: req.users._id})
-  
-  res.status(200).json({success: true, message: "Order get successfully",orders});
-})
+// myOrders
+const myOrders = catchAsyncError(async (req, res) => {
+  const orders = await Order.find({ userId: req.users._id });
+
+  res
+    .status(200)
+    .json({ success: true, message: "Order get successfully", orders });
+});
 module.exports = {
   getAllProducts,
   createProducts,
@@ -298,5 +321,6 @@ module.exports = {
   cloudinaryTest,
   searchProducts,
   orders,
-  myOrders
+  myOrders,
+  product,
 };
