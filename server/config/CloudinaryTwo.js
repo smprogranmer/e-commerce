@@ -16,15 +16,6 @@ const uploadOnCloudinaryTwo = async (localFilePaths) => {
           .upload(filePath, {
             resource_type: "auto",
             folder: "IMAGES",
-            transformation: [
-              {
-                width: 800,
-                height: 600,
-                crop: "limit",
-                quality: "auto",
-                fetch_format: "auto",
-              },
-            ],
           })
           .then((res) => {
             console.log(`✅ File uploaded: ${res.secure_url}`);
