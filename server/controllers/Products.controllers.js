@@ -19,7 +19,6 @@ cloudinary.config({
   api_secret: "0h5n9KPUr7CSztPQMY0HiKPIifs",
 });
 
-
 const HomePage = catchAsyncError(async (req, res, next) => {
   res.send("hello");
 });
@@ -60,9 +59,9 @@ const getTandingProducts = catchAsyncError(async (req, res, next) => {
 const cloudinaryTest = catchAsyncError(async (req, res, next) => {
   const { name, description, price, images, sizes, category } = req.body;
   console.log("skldfklsdfkls");
-  console.log(name, description, price, images,sizes, category);
+  console.log(name, description, price, images, sizes, category);
   const files = req.files;
-  console.log("��� ~ cloudinaryTest ~ files:", req)
+  console.log("��� ~ cloudinaryTest ~ files:", req);
 
   if (!name || !description || !price || !sizes || !images || !category) {
     return next(new ErroHandler("Please fill all the fields", 400));
@@ -75,7 +74,12 @@ const cloudinaryTest = catchAsyncError(async (req, res, next) => {
         folder: "NIBH_IMAGES",
       })
     )
-  ).then((results) => results.map((result) => ({ public_id: result.public_id, url: result.secure_url })));
+  ).then((results) =>
+    results.map((result) => ({
+      public_id: result.public_id,
+      url: result.secure_url,
+    }))
+  );
 
   res.status(201).json({
     message: "Product created succfully",
@@ -191,40 +195,42 @@ const createProducts = catchAsyncError(async (req, res, next) => {
 
   // res.json({ message: 'Files uploaded to Cloudinary and saved in MongoDB.' });
 });
-const product = catchAsyncError(async (req,res,next) => {
+const product = catchAsyncError(async (req, res, next) => {
   console.log("hello world!");
   // console.log(req)
-  const imageUrls = await uploadOnCloudinaryTwo(req.files.map((file) => file.path))
-  console.log("🚀 ~ product ~ productImage:", imageUrls)
+  const { name, description, price, category, model } = req.body;
+  const imageUrls = await uploadOnCloudinaryTwo(
+    req.files.map((file) => file.path)
+  );
+  console.log("🚀 ~ product ~ productImage:", imageUrls);
 
   const newProduct = new products({
-    name: "Tow Part abaya",
-    description: "sdffksldfksdfjkls",
-    price: 200,
-    category: "borka",
-    sizes: { // Correct key name
-      "52": 2,
-      "54": 3,
-      "56": 4,
+    name,
+    description,
+    price,
+    category,
+    sizes: {
+      // Correct key name
+      52: 2,
+      54: 3,
+      56: 4,
     },
-    model:238,
+    model,
     images: imageUrls.map((url) => ({
       url,
       alt: "Two Part Abaya image",
     })),
   });
-  
+
   await newProduct.save();
 
-  console.log("🚀 ~ product ~ newProduct:", newProduct)
+  console.log("🚀 ~ product ~ newProduct:", newProduct);
   // console.log("🚀 ~ product ~ newProduct:", newProduct)
   res.status(201).json({
     success: true,
     newProduct,
   });
-  
-})
-
+});
 
 const upgradeProducts = catchAsyncError(async (req, res, next) => {
   let Products = products.findById(req.params.id);
