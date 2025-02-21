@@ -196,13 +196,11 @@ const createProducts = catchAsyncError(async (req, res, next) => {
   // res.json({ message: 'Files uploaded to Cloudinary and saved in MongoDB.' });
 });
 const product = catchAsyncError(async (req, res, next) => {
-  console.log("hello world!");
-  // console.log(req)
-  const { name, description, price, category, model } = req.body;
+  const { name, description, price, category, model,colors } = req.body;
+  console.log(colors.split(','))
   const imageUrls = await uploadOnCloudinaryTwo(
     req.files.map((file) => file.path)
   );
-  console.log("🚀 ~ product ~ productImage:", imageUrls);
 
   const newProduct = new products({
     name,
@@ -215,6 +213,7 @@ const product = catchAsyncError(async (req, res, next) => {
       54: 3,
       56: 4,
     },
+    colors:colors.split(","),
     model,
     images: imageUrls.map((url) => ({
       url,

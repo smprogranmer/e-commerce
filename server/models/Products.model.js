@@ -47,6 +47,10 @@ const productSchema = new mongoose.Schema(
         message: "Sizes must be one of 52, 54, 56.",
       },
     },
+    colors:{
+      type:[String],
+      required: true
+    },
     images: [
       {
         url: {
