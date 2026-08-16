@@ -195,9 +195,14 @@ const createProducts = catchAsyncError(async (req, res, next) => {
 
   // res.json({ message: 'Files uploaded to Cloudinary and saved in MongoDB.' });
 });
+
 const product = catchAsyncError(async (req, res, next) => {
-  const { name, description, price, category, model,colors } = req.body;
-  console.log(colors.split(','))
+  const { name, description, price, category, model,size52,size54,size56, slug } = req.body;
+  console.log("🚀 ~ file: Products.controllers.js:140 ~ product ~ req.body:", req.body)
+
+  // check is it number or string 
+  console.log("🚀 ~ file: Products.controllers.js:142 ~ product ~ size52:", typeof size52)
+
   const imageUrls = await uploadOnCloudinaryTwo(
     req.files.map((file) => file.path)
   );
@@ -206,14 +211,14 @@ const product = catchAsyncError(async (req, res, next) => {
     name,
     description,
     price,
+    slug,
     category,
     sizes: {
       // Correct key name
-      52: 2,
-      54: 3,
-      56: 4,
+      52: size52,
+      54: size54,
+      56: size56,
     },
-    colors:colors.split(","),
     model,
     images: imageUrls.map((url) => ({
       url,
@@ -231,11 +236,46 @@ const product = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const updateProduct = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  const { name, description, price, category, model, colors } = req.body;
+
+  // Find the existing product
+  let product = await products.findById(id);
+  if (!product) {
+    return res.status(404).json({ success: false, message: "Product not found" });
+  }
+
+  // Handle image uploads if new files are provided
+  let imageUrls = product.images;
+  if (req.files && req.files.length > 0) {
+    imageUrls = await uploadOnCloudinaryTwo(req.files.map((file) => file.path));
+    imageUrls = imageUrls.map((url) => ({ url, alt: "Updated product image" }));
+  }
+
+  // Update product fields
+  product.name = name || product.name;
+  product.description = description || product.description;
+  product.price = price || product.price;
+  product.category = category || product.category;
+  product.model = model || product.model;
+  product.colors = colors ? colors.split(",") : product.colors;
+  product.images = imageUrls;
+
+  await product.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Product updated successfully",
+    product,
+  });
+});
+
 const upgradeProducts = catchAsyncError(async (req, res, next) => {
   let Products = products.findById(req.params.id);
 
   if (!Products) {
-    return next(new ErroHandler("Invalied id", 404));
+    return next(new ErroHandler("Invalid id", 404));
   } else {
     Products = await products.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

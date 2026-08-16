@@ -8,6 +8,12 @@ const error = require("./middlewares/error");
 const cookiePaser = require("cookie-parser");
 const cors = require("cors");
 const upload = require("./middlewares/uploadFile");
+const dns = require("dns");
+
+dns.setServers([
+  "1.1.1.1",
+  "8.8.8.8"
+]);
 
 config({
   path: "./config/.env",
@@ -25,16 +31,20 @@ app.use(express.urlencoded({ extended: true,limit: "50mb" }));
 app.use(express.json({limit:"50mb"}));
 app.use(cookiePaser());
 
-// routes
+// routes\
 app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/cart", cardRouter);
 app.use("/api/v1/user/", usersRouter);
-app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/orders", orderRouter);
 
 // console.log("limits" + limit)
 
 app.get("/", (req, res) => {
   res.send("hello");
+});
+app.post("/api/v1/products/new", (req, res) => {
+  console.log("🎯 সরাসরি প্রধান সার্ভার ফাইলে রিকোয়েস্ট এসেছে!");
+  res.send("রিকোয়েস্ট সফল!");
 });
 
 app.post("/hello",upload.array('images', 4),async (req, res) => {

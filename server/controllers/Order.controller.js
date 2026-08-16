@@ -1,8 +1,17 @@
 const Order = require("../models/Order.model.js");
 const catchAsyncError = require("../middlewares/catchAsyncError.js");
 
+const getAllOrders = catchAsyncError(async (req, res) => {
+  const orders = await Order.find();
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+});
+
 const createOrder = catchAsyncError(async (req, res) => {
   console.log(req.user);
+
   const { orderProductsDetails,shippingDetails } = req.body;
   console.log("🚀 ~ createOrder ~ shippingDetails:", shippingDetails)
   console.log("🚀 ~ createOrder ~ orderProductsDetails:", orderProductsDetails)
@@ -48,8 +57,6 @@ const fetchCartProduct = catchAsyncError(async (req, res) => {
   });
 });
 
-
-
 const upgradeProductCart = catchAsyncError(async (req, res) => {
   const { id } = req.params;
   console.log(req.body.quantity)
@@ -73,7 +80,6 @@ const upgradeProductCart = catchAsyncError(async (req, res) => {
   });
 });
 
-
 // delete all cart 
 
 const removeAllCart = catchAsyncError(async (req, res) => {
@@ -88,4 +94,9 @@ const removeAllCart = catchAsyncError(async (req, res) => {
 
 module.exports = {
     createOrder,
+    getAllOrders,
+    productRemovefromCart,
+    fetchCartProduct,
+    upgradeProductCart,
+    removeAllCart
   };

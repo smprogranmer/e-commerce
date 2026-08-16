@@ -3,9 +3,35 @@ const mongoose = require('mongoose')
 const orderSchema = new mongoose.Schema({
     orderProducts: [
         {
-            type:mongoose.Schema.ObjectId,
-            ref:"Carts",
-            required:true
+            image:{
+                type: String,
+                required: true,
+            },
+            name: {
+                type: String,
+                required: true,
+            },
+            price:{
+                type: Number,
+                required:[true,"Please enter your product price"],
+            },
+            size:{
+                type: String,
+                required:[true,"Please enter your product size"],
+            },
+            model:{
+                type: Number,
+                required:[true,"Please enter your product model"],
+            },
+            quantity:{
+                type: Number,
+                required:[true,"Please enter your quantity"],
+            },
+            status:{
+                type: String,
+                enum: ["pending", "shipped", "delivered"],
+                default: "pending",
+            }
         }
     ],
     totalPrice:{
@@ -15,16 +41,20 @@ const orderSchema = new mongoose.Schema({
     userId:{
         type:mongoose.Schema.ObjectId,
         ref:"Users",
-        required:true,
+        // required:[true,"Please enter your user id"],
+        
     },
     shippingDetails: {
         firstName: { type: String, required: true },
-        lastName: { type: String, required: true },
-        phoneNumber: { type: Number, required: true },
+        lastName: { type: String, },
+        phone: { type: Number, required: true },
+        email: { type: String, required: true },
         streetAddress: { type: String, required: true },
         city: { type: String, required: true },
-        postalCode: { type: String, required: true },
+        zipCode: { type: Number,  },
       },
+      refId: { type: String},
+      orderId: { type: String, required: true,unique: true },
 },
 {
     timestamps:true
