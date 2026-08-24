@@ -9,6 +9,7 @@ const cookiePaser = require("cookie-parser");
 const cors = require("cors");
 const upload = require("./middlewares/uploadFile");
 const dns = require("dns");
+const mongoose = require('mongoose')
 
 dns.setServers([
   "1.1.1.1",
@@ -39,8 +40,15 @@ app.use("/api/v1/orders", orderRouter);
 
 // console.log("limits" + limit)
 
-app.get("/", (req, res) => {
-  res.send("hello");
+app.get("/", async (req, res) => {
+      try {
+        await mongoose.connect(process.env.DB_URL)
+        res.send("connected to database")
+    } catch (error) {
+        console.log(process.env.DB_UR)
+        console.log(error)
+        process.exit(1)
+    }
 });
 app.post("/api/v1/products/new", (req, res) => {
   console.log("🎯 সরাসরি প্রধান সার্ভার ফাইলে রিকোয়েস্ট এসেছে!");
