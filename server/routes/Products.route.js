@@ -15,7 +15,7 @@ Router.get('/',getAllProducts)
 Router.get('/:id',getOneProduct)
 
 Router.delete('/:id',deleteProducts)
-Router.put('/:id',upgradeProducts)
+Router.put('/:id',uploadTwo,upgradeProducts)
 Router.get('/search-products/:searchTerm',searchProducts)
 Router.post("/orders",isAuthenticatedUser,orders)
 
