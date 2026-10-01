@@ -7,9 +7,9 @@ const usersRouter = require("./routes/Users.route");
 const error = require("./middlewares/error");
 const cookiePaser = require("cookie-parser");
 const cors = require("cors");
-const upload = require("./middlewares/uploadFile");
+// const upload = require("./middlewares/uploadFile");
 const dns = require("dns");
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 
 dns.setServers([
   "1.1.1.1",

@@ -1,7 +1,7 @@
 const express = require('express')
 const { getAllProducts, createProducts, getOneProduct, upgradeProducts, deleteProducts, cloudinaryTest, searchProducts, orders, myOrders, product } = require('../controllers/Products.controllers')
 const isAuthenticatedUser = require('../middlewares/auth')
-const upload = require('../middlewares/uploadFile')
+// const upload = require('../middlewares/uploadFile')
 const uploadTwo = require('../middlewares/multerFileUpload')
 // const  authorizeRoles = require('../middlewares/auth')
 const Router = express.Router()
