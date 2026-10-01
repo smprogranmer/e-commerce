@@ -1,10 +1,18 @@
 const app = require('./app');
-const mongodb_url = require("./config/db");
+const connectDB = require("./config/db");
 
 // app.get("/", (req, res) => {
 //   res.send("hello");
 // });
-app.listen(process.env.PORT, (req, res) => {
-  console.log(`server is listening on port ${process.env.PORT}`);
-  mongodb_url();
-});
+connectDB()
+.then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+    })
+})
+.catch((err) => {
+    console.log("MONGO db connection failed !!! ", err);
+})
+
+
+exports.module = app;

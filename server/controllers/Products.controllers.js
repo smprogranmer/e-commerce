@@ -26,7 +26,7 @@ const HomePage = catchAsyncError(async (req, res, next) => {
 const getAllProducts = catchAsyncError(async (req, res, next) => {
   const { category, size, orderBy } = req.query;
   const queryObject = {};
-  // console.log(category.toString())
+
   if (category) {
     queryObject.category = category;
   }
@@ -37,8 +37,8 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
   if (orderBy) {
     console.log(orderBy);
   }
+
   const Products = await stock.find(queryObject);
-  console.log("🚀 ~ getAllProducts ~ Products:", Products.length);
 
   res.status(200).json({
     success: true,

@@ -41,33 +41,27 @@ app.use("/api/v1/orders", orderRouter);
 // console.log("limits" + limit)
 
 app.get("/", async (req, res) => {
-      try {
-        await mongoose.connect(process.env.DB_URL)
-        res.send("connected to database")
-    } catch (error) {
-        console.log(process.env.DB_UR)
-        console.log(error)
-        process.exit(1)
-    }
-});
-app.post("/api/v1/products/new", (req, res) => {
-  console.log("🎯 সরাসরি প্রধান সার্ভার ফাইলে রিকোয়েস্ট এসেছে!");
-  res.send("রিকোয়েস্ট সফল!");
+  res.send("hello world");
 });
 
-app.post("/hello",upload.array('images', 4),async (req, res) => {
-  try {
-    const { name, description, price, sizes } = req.body;
-    // const images = req.files.map((file) => ({
-    //   data: file.buffer.toString('base64'),
-    //   contentType: file.mimetype,
-    // }));
-    console.log("🚀 ~ file: app.js:40 ~ images ~ images:", req)
+// app.post("/api/v1/products/new", (req, res) => {
+//   console.log("🎯 সরাসরি প্রধান সার্ভার ফাইলে রিকোয়েস্ট এসেছে!");
+//   res.send("রিকোয়েস্ট সফল!");
+// });
 
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-})
+// app.post("/hello",upload.array('images', 4),async (req, res) => {
+//   try {
+//     const { name, description, price, sizes } = req.body;
+//     // const images = req.files.map((file) => ({
+//     //   data: file.buffer.toString('base64'),
+//     //   contentType: file.mimetype,
+//     // }));
+//     console.log("🚀 ~ file: app.js:40 ~ images ~ images:", req)
+
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// })
 
 app.use(error);
 
