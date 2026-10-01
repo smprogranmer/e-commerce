@@ -1,5 +1,5 @@
 const app = require('./app');
-const connectDB = require("./config/db");
+const mongodb_url = require("./config/db");
 
 // app.get("/", (req, res) => {
 //   res.send("hello");
