@@ -1,5 +1,6 @@
 const Order = require("../models/Order.model.js");
 const catchAsyncError = require("../middlewares/catchAsyncError.js");
+const Cart = require("../models/Cart.model.js");
 
 const getAllOrders = catchAsyncError(async (req, res) => {
   const orders = await Order.find();

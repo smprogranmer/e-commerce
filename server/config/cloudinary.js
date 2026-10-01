@@ -44,7 +44,7 @@ const multiple = (images) =>{
         console.log("🚀 ~ file: cloudinary.js:36 ~ multiple ~ uploads:", uploads.secure_url)
         return uploads
     } catch (error) {
-        
+        console.log("🚀 ~ file: cloudinary.js:39 ~ multiple ~ error:", error)
     }
 }
 
